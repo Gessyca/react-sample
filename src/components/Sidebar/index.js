@@ -7,14 +7,14 @@ const Sidebar = ({modules, toggleLesson, clean, addLesson}) => {
 
     function add(e, moduleId) {
         const input = document.getElementById(moduleId);
-        if(input) {
+        e.preventDefault();
+        if(input && input.value) {
             addLesson(moduleId,input.value);
             input.value = '';
             input.focus();
         } else {
             alert('Preencha o campo')
         }
-        e.preventDefault();
     }
 
     return(
