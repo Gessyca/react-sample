@@ -33,7 +33,7 @@ export default function course(state = INITIAL_STATE, action) {
             const modules = [...state.modules];
             modules.forEach( m => {
                 if(m.id === action.payload.moduleId){
-                    const lesson = {id: ++m.lessons.length, title: action.payload.newLesson}
+                    const lesson = {id: Math.random(), title: action.payload.newLesson}
                     m.lessons.push(lesson);
                 }
             });

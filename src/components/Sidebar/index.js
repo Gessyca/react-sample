@@ -4,19 +4,31 @@ import { bindActionCreators } from 'redux';
 import * as CourseActions from '../../store/actions/course'
 
 const Sidebar = ({modules, toggleLesson, clean, addLesson}) => {
- 
-    let inputValue = null;
+
+    function add(e, moduleId) {
+        const input = document.getElementById(moduleId);
+        if(input) {
+            addLesson(moduleId,input.value);
+            input.value = '';
+            input.focus();
+        } else {
+            alert('Preencha o campo')
+        }
+        e.preventDefault();
+    }
 
     return(
     <aside>
     {modules.map(m => (
         <div key={m.id}>
             <strong>{m.title}</strong>
+            <form autoComplete="off" onSubmit={(e) => add(e, m.id)}>
             <p>
                 <label>Add new lesson: </label>
-                <input id="input" type="text" onChange={(e) => {inputValue = e.target.value}}/>
-                <button onClick={() => addLesson(m.id, inputValue)}>Adicionar</button>
+                <input id={m.id} type="text"/>
+                <button type="submit">Adicionar</button>
             </p>
+            </form>
             <ul>
                 {m.lessons.map( l => (
                     <li key={l.id}>
@@ -27,7 +39,6 @@ const Sidebar = ({modules, toggleLesson, clean, addLesson}) => {
             </ul>
         </div>
     ))}
-    <button onClick={() => clean()}>Limpar</button>
     </aside>);
 };
 
