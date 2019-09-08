@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as CourseActions from '../../store/actions/course'
+import {Creators as CourseActions} from '../../store/ducks/course';
 
-const Sidebar = ({modules, toggleLesson, clean, addLesson}) => {
+const Sidebar = ({modules, toggleLesson, addLesson}) => {
 
     function add(e, moduleId) {
         const input = document.getElementById(moduleId);
