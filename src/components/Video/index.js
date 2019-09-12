@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as CourseActions from '../../store/actions/course'
+import {Creators as CourseActions} from '../../store/ducks/course';
 
 const Video = ({activeModule, activeLesson, clean}) => (
     <div>

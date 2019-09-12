@@ -4,11 +4,14 @@ import { createReducer, createActions } from 'reduxsauce';
 export const { Types, Creators } = createActions({
     addLesson: ['moduleId', 'newLesson'],
     clean: null,
-    toggleLesson: ['module', 'lesson']
+    toggleLesson: ['module', 'lesson'],
+    helloWorldSaga: null,
+    setMessage: ['message']
 });
 
 // state inicial
-export const INITIAL_STATE = {
+const INITIAL_STATE = {
+    messageSaga: null,
     activeLesson: {},
     activeModule: {},
     modules: [
@@ -33,13 +36,15 @@ export const INITIAL_STATE = {
 
 //Cada case do reducer vira uma arrow function
 // Os parâmetros não ficam mais dentro do payload e sim na action
-export const toggleLesson = (state = INITIAL_STATE, action) => {
+const toggleLesson = (state = INITIAL_STATE, action) => {
     return { ...state, activeLesson: action.lesson, activeModule: action.module };
 };
 
-export const clean = (state = INITIAL_STATE) => ({ ...state, activeLesson: {}, activeModule: {} });
+const clean = (state = INITIAL_STATE) => ({ ...state, activeLesson: {}, activeModule: {} });
 
-export const addLesson = (state = INITIAL_STATE, action) => {
+const setMessage = (state = INITIAL_STATE, {message}) => ({...state, messageSaga: message});
+
+const addLesson = (state = INITIAL_STATE, action) => {
     const modules = [...state.modules];
     modules.forEach(m => {
         if (m.id === action.moduleId) {
@@ -50,11 +55,13 @@ export const addLesson = (state = INITIAL_STATE, action) => {
     return { ...state, modules };
 };
 
-// mapeamento dos reducers
-export const HANDLERS = {
+// mapeamento dos reducers com ActionTypes
+const HANDLERS = {
     [Types.ADD_LESSON]: addLesson,
     [Types.CLEAN]: clean,
-    [Types.TOGGLE_LESSON]: toggleLesson
+    [Types.TOGGLE_LESSON]: toggleLesson,
+    [Types.HELLO_WORLD_SAGA]: null,
+    [Types.SET_MESSAGE]: setMessage
 };
 
 export default createReducer(INITIAL_STATE, HANDLERS);

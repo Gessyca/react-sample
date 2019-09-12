@@ -1,9 +1,12 @@
-import { createStore} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import reducers from './ducks';
+import root from './ducks/sagas';
 
-const store = createStore(reducers);
+const sagaMiddleware = createSagaMiddleware();
 
-console.log(store.getState());
+const store = createStore(reducers, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(root);
 
 // Posso fazer um subscriber no store para monitorar
 store.subscribe(() => {
